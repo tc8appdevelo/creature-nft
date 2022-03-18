@@ -1,4 +1,5 @@
 
+
 class Torso {
   constructor(ctx, pos) {
     this.ctx = ctx;
@@ -6,26 +7,26 @@ class Torso {
     this.color = this.randColor();
     this.shape = 'square';
     this.size = this.randRect();
+     
   }
 
   evolve() {
 
   }
 
-  draw() {
+  draw(sizeRatio = 1) {
     this.ctx.fillStyle = this.color;
     if (this.shape === 'square') {
-      this.ctx.fillRect(this.pos[0], this.pos[1], this.size[0], this.size[1])
+      this.ctx.fillRect(this.pos[0], this.pos[1], this.size[0]/sizeRatio, this.size[1]/sizeRatio)
     } else if (this.shape === 'circle') {
       let radius = this.randCircle();
       this.ctx.beginPath();
-      this.ctx.arc(this.pos[0], this.pos[1], this.size, 0, 2*Math.PI);
+      this.ctx.arc(this.pos[0], this.pos[1], radius, 0, 2*Math.PI);
       this.ctx.fill();
     }
   }
 
   randShape() {
-    let r = Math.random();
     if (Math.random() > 0.5) {
       return 'circle';
     } else {

@@ -1,12 +1,15 @@
 
 import './App.css';
 import React, { useEffect, useRef } from 'react';
-import Game from './Game';
+import GameComp from './GameComp.js';
+import GameMap from './map/game_map';
 
 function App() {
   return (
     <div className='app'>
-      <Game />
+      <GameMap />
+      <GameComp />
+      
     </div>
   );
 }

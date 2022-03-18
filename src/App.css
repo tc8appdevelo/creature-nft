@@ -38,9 +38,36 @@
 }
 
 #canvas {
-  background: lightgray;
+  background: transparent;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+/* #canvas {
+  display: block;
+  background-color: white;
+  position: absolute;
+  border: 2px solid;
+  margin: auto;
+  left: 60px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+} */
+
+.map-wrap {
+  width: 80vw;
+  height: 80vh;
+  display: flex;
+}
+
+.map {
+  min-height: 333px;
+  width: 100vw;
+  /* position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); */
 }

@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-const Creature = require('./creature.js');
-const Practice = require('./practice.js');
+import GameMap from './map/game_map.jsx';
 
-function Game() {
+const Game = require('./game.js')
+
+function GameComp() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -10,13 +11,17 @@ function Game() {
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth * 0.8;
     canvas.height = window.innerHeight * 0.8;
-    let pos = [100, 100];
-    let creature = new Creature(ctx, pos);
-    
-    creature.draw();
+    const game = new Game(canvas, ctx);
+    game.start();
   }, []);
 
-  return <canvas id="canvas" ref={canvasRef} />
+  return (
+    <div>
+      {/* <GameMap /> */}
+      <canvas id="canvas" ref={canvasRef} />
+    </div>
+
+  )
 }
 
-export default Game;
+export default GameComp;

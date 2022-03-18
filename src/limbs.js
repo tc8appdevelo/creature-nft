@@ -1,33 +1,55 @@
 class Limbs {
-  constructor(ctx, torso) {
+  constructor(ctx, torso, isMoving) {
     this.ctx = ctx;
     this.color = this.randColor();
     this.torso = torso;
 
     this.length = this.randLength();
-    this.width = this.randWidth(this.length);
+    this.width = this.randWidth();
 
     this.backPos = this.attachBackLimbs(torso);
     this.frontPos = this.attachFrontLimbs(torso);
+
+    this.liftBackLegs = false;
   }
 
-  draw() {
+  draw(isMoving, torso, sizeRatio = 1) {
+    let backPos = this.attachBackLimbs(torso, sizeRatio);
+    let frontPos = this.attachFrontLimbs(torso, sizeRatio);
     this.ctx.fillStyle = this.color;
-    this.ctx.fillRect(this.backPos[0], this.backPos[1],
-                      this.width, this.length);
-    this.ctx.fillRect(this.frontPos[0], this.frontPos[1],
-                      this.width, this.length);
-    
+    if (isMoving) {
+      if (Math.random() > 0.5) {
+        this.ctx.fillRect(backPos[0], backPos[1],
+          this.width / sizeRatio, (this.length / sizeRatio) * 0.8);
+        this.ctx.fillRect(frontPos[0], frontPos[1],
+          this.width / sizeRatio, this.length / sizeRatio);
+        
+      } else {
+        this.ctx.fillRect(backPos[0], backPos[1],
+          this.width / sizeRatio, this.length / sizeRatio);
+        this.ctx.fillRect(frontPos[0], frontPos[1],
+          this.width / sizeRatio, (this.length / sizeRatio) * 0.8);
+        
+      }
+      
+      
+
+    } else if (!isMoving) {
+      this.ctx.fillRect(backPos[0], backPos[1],
+        this.width / sizeRatio, this.length / sizeRatio);
+      this.ctx.fillRect(frontPos[0], frontPos[1],
+        this.width / sizeRatio, this.length / sizeRatio);
+    }
   }
 
-  attachBackLimbs(torso) {
-    let x = torso.pos[0] + torso.size[0]/4 - this.width/2;
-    let y = torso.pos[1] + torso.size[1];
+  attachBackLimbs(torso, sizeRatio = 1) {
+    let x = torso.pos[0] + (torso.size[0]/4)/sizeRatio - (this.width/2)/sizeRatio;
+    let y = torso.pos[1] + torso.size[1]/sizeRatio;
     return [x, y];
   }
-  attachFrontLimbs(torso) {
-    let x = torso.pos[0] + torso.size[0] - torso.size[0]/4 - this.width/2;
-    let y = torso.pos[1] + torso.size[1];
+  attachFrontLimbs(torso, sizeRatio = 1) {
+    let x = torso.pos[0] + torso.size[0]/sizeRatio - (torso.size[0]/4)/sizeRatio - (this.width/2)/sizeRatio;
+    let y = torso.pos[1] + torso.size[1]/sizeRatio;
     return [x, y];
   }
 
